@@ -19,7 +19,7 @@
             <version>2.8.7</version>
         </dependency>
     </dependencies>
-
+    <packaging>war</packaging>
     <build>
         <finalName>MoviesBackend</finalName>
         <plugins>

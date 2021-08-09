@@ -36,11 +36,17 @@ public class MySqlMoviesDao implements MoviesDao{
             movies.add(new Movie(
                     rs.getInt("id"),
                     rs.getString("title"),
+                    rs.getString("year"),
                     rs.getString("director"),
                     rs.getString("actors"),
-                    rs.getString("")
-            ))
+                    rs.getString("poster"),
+                    rs.getString("genre"),
+                    rs.getString("plot"),
+                    rs.getString("rating")
+            ));
         }
+
+        return movies;
     }
 
     @Override

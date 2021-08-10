@@ -28,7 +28,7 @@ public class MovieServlet extends HttpServlet {
 //                    "Two straight guys pretend to be gay in order to secure a Miami apartment. When both of them fall for their roommate Neha, hilarity ensues as they strive to convince one and all that they're gay whilst secretly trying to win her heart");
 
             // make movies dao
-            MoviesDao moviesDao = DaoFactory.getMoviesDao(DaoFactory.ImplType.IN_MEMORY);
+            MoviesDao moviesDao = DaoFactory.getMoviesDao(DaoFactory.ImplType.MYSQL);
 
             // turn into JSON
             String movieString = new Gson().toJson(moviesDao.all());
@@ -53,7 +53,7 @@ public class MovieServlet extends HttpServlet {
             // turn that stream into an array of movies
             Movie[] movies = new Gson().fromJson(reader, Movie[].class);
 
-            DaoFactory.getMoviesDao(DaoFactory.ImplType.IN_MEMORY).insert(movies[0]);
+            DaoFactory.getMoviesDao(DaoFactory.ImplType.MYSQL).insertAll(movies);
             for(Movie movie : movies){
                 System.out.println(movie.getId());
                 System.out.println(movie.getTitle());
@@ -83,7 +83,7 @@ public class MovieServlet extends HttpServlet {
 
         try {
             Movie movie = new Gson().fromJson(request.getReader(), Movie.class);
-            DaoFactory.getMoviesDao(DaoFactory.ImplType.IN_MEMORY).update(movie);
+            DaoFactory.getMoviesDao(DaoFactory.ImplType.MYSQL).update(movie);
         } catch (SQLException e) {
             out.println(new Gson().toJson(e.getLocalizedMessage()));
             response.setStatus(500);
@@ -106,7 +106,7 @@ public class MovieServlet extends HttpServlet {
         PrintWriter out = null;
         try {
             var id = new Gson().fromJson(request.getReader(), int.class);
-            DaoFactory.getMoviesDao(DaoFactory.ImplType.IN_MEMORY).destroy(id);
+            DaoFactory.getMoviesDao(DaoFactory.ImplType.MYSQL).destroy(id);
         } catch (Exception e) {
             out.println(new Gson().toJson(e.getLocalizedMessage()));
             response.setStatus(500);

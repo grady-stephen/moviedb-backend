@@ -84,3 +84,31 @@ body: JSON.stringify(5)
   }).then(function(data) {
     console.log(data);
   });
+
+
+  PUT
+
+
+  fetch("http://localhost:8080/movies", {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      body: JSON.stringify({
+                                 "id": 5,
+                                 "title": "Breagaloo",
+                                 "director": "",
+                                 "year": "",
+                                 "genre": "test",
+                                 "actors": "",
+                                 "plot": "",
+                                 "rating": "",
+                                 "poster": "https://m.media-amazon.com/images/M/MV5BNGMwNGI0NzAtY2U1Zi00MTI3LTk2NWQtMTU0ZmQ3OGZmMjc2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UY1200_CR86,0,630,1200_AL_.jpg",
+
+                               })
+                   }).then(function(response) {
+                       return response.json();
+                   }).then(function(data) {
+                       console.log(data);
+                   });

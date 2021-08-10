@@ -82,6 +82,7 @@ public class MovieServlet extends HttpServlet {
         PrintWriter out = null;
 
         try {
+            out = response.getWriter();
             Movie movie = new Gson().fromJson(request.getReader(), Movie.class);
             DaoFactory.getMoviesDao(DaoFactory.ImplType.MYSQL).update(movie);
         } catch (SQLException e) {
@@ -105,8 +106,10 @@ public class MovieServlet extends HttpServlet {
         response.setContentType("application/JSON");
         PrintWriter out = null;
         try {
+            out = response.getWriter();
             var id = new Gson().fromJson(request.getReader(), int.class);
             DaoFactory.getMoviesDao(DaoFactory.ImplType.MYSQL).destroy(id);
+
         } catch (Exception e) {
             out.println(new Gson().toJson(e.getLocalizedMessage()));
             response.setStatus(500);

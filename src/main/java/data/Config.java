@@ -2,7 +2,7 @@ package data;
 
 public class Config {
     public String getUrl(){
-        return "jdbc:mysql://localhost:3306/movies_db?serverTimezone=UTC&useSSL=false";
+        return "jdbc:mysql://localhost:3306/movie_db?serverTimezone=UTC&useSSL=false";
     }
     public String getUser(){
         return "root";

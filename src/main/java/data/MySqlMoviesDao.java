@@ -39,10 +39,10 @@ public class MySqlMoviesDao implements MoviesDao{
                     rs.getString("year"),
                     rs.getString("director"),
                     rs.getString("actors"),
+                    rs.getString("rating"),
                     rs.getString("poster"),
                     rs.getString("genre"),
-                    rs.getString("plot"),
-                    rs.getString("rating")
+                    rs.getString("plot")
             ));
         }
 
@@ -98,13 +98,16 @@ public class MySqlMoviesDao implements MoviesDao{
 
     @Override
     public void update(Movie movie) throws SQLException {
+        // set up a string sql with placeholders that coresponds to mysql
         String sql = "UPDATE movies " +
-                "SET title = '?', year = '?', director = '?', actors = '?', " +
-                "poster ='?', genre = '?', plot = '?', rating = '?' " +
-                "WHERE id = '?';";
+                "SET title = ?, year = ?, director = ?, actors = ?, " +
+                "poster = ?, genre = ?, plot = ?, rating = ? " +
+                "WHERE id = ?;";
 
-        PreparedStatement statement = connection.prepareStatement(sql.toString());
+        // backend method that makes strings changeable and allows us to input things into ?
+        PreparedStatement statement = connection.prepareStatement(sql);
 
+        // change each ? using preparedstatement methods and their index with movie.attributes()
         statement.setString( 1, movie.getTitle());
         statement.setString( 2, movie.getYear());
         statement.setString( 3, movie.getDirector());
@@ -124,9 +127,9 @@ public class MySqlMoviesDao implements MoviesDao{
     public void destroy(int id) throws SQLException {
 
         String sql = "DELETE FROM movies " +
-                        "WHERE id = '?';";
+                        "WHERE id = ? ;";
 
-        PreparedStatement statement = connection.prepareStatement(sql.toString());
+        PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setInt(1, id);
 
